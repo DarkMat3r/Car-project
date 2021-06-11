@@ -1,0 +1,94 @@
+#include <DualMAX14870MotorShield.h>
+
+DualMAX14870MotorShield motors;
+
+void stopIfFault()
+{
+  if (motors.getFault())
+  {
+    while (1)
+    {
+      // Би трябвало да спира моторите при сблъсък..
+    }
+  }
+}
+
+void setup()
+{ 
+  // Ако има нужда да бъдат flip-нати моторите. 
+   motors.flipM1(true);
+  // motors.flipM2(true);
+}
+
+void loop()
+{
+  motors.enableDrivers();
+ 
+  // Задвижва Мотор 1 (главен мотор)
+
+  for (int speed = 0; speed <= 300; speed++)
+  {
+    motors.setM1Speed(speed);
+    stopIfFault();
+    delay(2);
+  }
+
+  for (int speed = 300; speed >= 0; speed--)
+  {
+    motors.setM1Speed(speed);
+    stopIfFault();
+    delay(2);
+  }
+
+  // Задвижва Мотор 2(мотор за завиване)
+
+  for (int speed = 0; speed <= 500; speed++)
+  {
+    motors.setM2Speed(speed);
+    stopIfFault();
+    delay(3);
+  
+  }
+
+  for (int speed = 500; speed >= 0; speed--)
+  {
+    motors.setM2Speed(speed);
+    stopIfFault();
+    delay(3);
+  }
+
+  // Задвижва Мотор 1 (главен мотор)
+
+  for (int speed = 0; speed >= -300; speed--)
+  {
+    motors.setM1Speed(speed);
+    stopIfFault();
+    delay(2);
+  }
+
+  for (int speed = -300; speed <= 0; speed++)
+  {
+    motors.setM1Speed(speed);
+    stopIfFault();
+    delay(2);
+  }
+
+  // Задвижва Мотор 1 (мотор за завиване)
+
+  for (int speed = 0; speed >= -500; speed--)
+  {
+    motors.setM2Speed(speed);
+    stopIfFault();
+    delay(3);
+  }
+
+  for (int speed = -500; speed <= 0; speed++)
+  {
+    motors.setM2Speed(speed);
+    stopIfFault();
+    delay(3);
+  }
+
+  motors.disableDrivers();
+  delay(100);
+}
